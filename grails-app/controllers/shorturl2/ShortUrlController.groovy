@@ -1,101 +1,67 @@
 package shorturl2
 
 import grails.validation.ValidationException
-import static org.springframework.http.HttpStatus.*
+
+import static org.springframework.http.HttpStatus.NOT_FOUND
 
 class ShortUrlController {
 
-    static scaffold = ShortUrl
+	static scaffold = ShortUrl
 
-    ShortUrlService shortUrlService
+	ShortUrlService shortUrlService
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+	static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond shortUrlService.list(params), model:[shortUrlCount: shortUrlService.count()]
-    }
+	def index(Integer max) {
+		params.max = Math.min(max ?: 10, 100)
+		respond shortUrlService.list(params), model: [shortUrlCount: shortUrlService.count()]
+	}
 
-    def show(Long id) {
-        respond shortUrlService.get(id)
-    }
+	def show(Long id) {
+		redirect uri: ShortUrl.findByIdOrCode(id, params.code as String)?.url
+	}
 
-    def create() {
-        respond new ShortUrl(params)
-    }
+	def create(String id) {
+		respond new ShortUrl(params), model: [created: ShortUrl.get(id)]
+	}
 
-    def save(ShortUrl shortUrl) {
-        if (shortUrl == null) {
-            notFound()
-            return
-        }
+	def save(ShortUrl shortUrl) {
+		if (shortUrl == null) {
+			notFound()
+			return
+		}
 
-        try {
-            shortUrlService.save(shortUrl)
-        } catch (ValidationException e) {
-            respond shortUrl.errors, view:'create'
-            return
-        }
+		if (!shortUrl.code) shortUrl.initCode()
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'shortUrl.label', default: 'ShortUrl'), shortUrl.id])
-                redirect shortUrl
-            }
-            '*' { respond shortUrl, [status: CREATED] }
-        }
-    }
+		try {
+			shortUrlService.save(shortUrl)
+		} catch (ValidationException e) {
+			respond shortUrl.errors, view: 'create'
+			return
+		}
 
-    def edit(Long id) {
-        respond shortUrlService.get(id)
-    }
+		redirect action: 'create', params: [id: shortUrl.id]
+	}
 
-    def update(ShortUrl shortUrl) {
-        if (shortUrl == null) {
-            notFound()
-            return
-        }
+	def edit() {
+		render(status: 404)
+	}
 
-        try {
-            shortUrlService.save(shortUrl)
-        } catch (ValidationException e) {
-            respond shortUrl.errors, view:'edit'
-            return
-        }
+	def update() {
+		render(status: 404)
+	}
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'shortUrl.label', default: 'ShortUrl'), shortUrl.id])
-                redirect shortUrl
-            }
-            '*'{ respond shortUrl, [status: OK] }
-        }
-    }
+	def delete() {
+		render(status: 404)
+	}
 
-    def delete(Long id) {
-        if (id == null) {
-            notFound()
-            return
-        }
-
-        shortUrlService.delete(id)
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'shortUrl.label', default: 'ShortUrl'), id])
-                redirect action:"index", method:"GET"
-            }
-            '*'{ render status: NO_CONTENT }
-        }
-    }
-
-    protected void notFound() {
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.not.found.message', args: [message(code: 'shortUrl.label', default: 'ShortUrl'), params.id])
-                redirect action: "index", method: "GET"
-            }
-            '*'{ render status: NOT_FOUND }
-        }
-    }
+	protected void notFound() {
+		request.withFormat {
+			form multipartForm {
+				flash.message = message(code: 'default.not.found.message', args: [message(code: 'shortUrl.label', default: 'ShortUrl'), params.id])
+				redirect action: "index", method: "GET"
+			}
+			'*' { render status: NOT_FOUND }
+		}
+	}
 }

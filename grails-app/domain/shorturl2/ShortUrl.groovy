@@ -6,8 +6,8 @@ class ShortUrl {
 	String url
 
 	static constraints = {
-		code unique: true
-		url url: true
+		code unique: true, nullable: true
+		url url: true, blank: false
 	}
 
 	void initCode() {

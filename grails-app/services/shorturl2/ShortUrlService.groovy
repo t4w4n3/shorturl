@@ -5,14 +5,14 @@ import grails.gorm.services.Service
 @Service(ShortUrl)
 interface ShortUrlService {
 
-    ShortUrl get(Serializable id)
+	ShortUrl get(Serializable id)
 
-    List<ShortUrl> list(Map args)
+	List<ShortUrl> list(Map args)
 
-    Long count()
+	Long count()
 
-    void delete(Serializable id)
+	void delete(Serializable id)
 
-    ShortUrl save(ShortUrl shortUrl)
+	ShortUrl save(ShortUrl shortUrl)
 
 }
