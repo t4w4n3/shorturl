@@ -9,7 +9,7 @@ class UrlMappings {
 			}
 		}
 
-		"/$code"(controller: 'shortUrl', action: 'show')
+		"/$fragment"(controller: 'shortUrl', action: 'show')
 
 		"/"(controller: 'shortUrl', action: "create")
 		"500"(view: '/error')

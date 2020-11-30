@@ -2,15 +2,15 @@ package shorturl2
 
 class ShortUrl {
 
-	String code
+	String fragment
 	String url
 
 	static constraints = {
-		code unique: true, nullable: true
+		fragment unique: true, nullable: true
 		url url: true, blank: false
 	}
 
-	void initCode() {
-		code = UUID.randomUUID().toString().take(5)
+	void initFragment() {
+		fragment = UUID.randomUUID().toString().take(5)
 	}
 }

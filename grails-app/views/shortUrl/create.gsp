@@ -46,7 +46,7 @@
 		<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 		</g:if>
-		<g:set var="link" value="${createLink(uri: "/${created.code}", absolute: true)}"/>
+		<g:set var="link" value="${createLink(uri: "/${created.fragment}", absolute: true)}"/>
 		<a href="${link}">${link}</a>
 	</div>
 </g:if>

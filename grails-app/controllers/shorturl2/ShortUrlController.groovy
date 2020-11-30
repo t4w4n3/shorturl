@@ -18,7 +18,7 @@ class ShortUrlController {
 	}
 
 	def show(Long id) {
-		redirect uri: ShortUrl.findByIdOrCode(id, params.code as String)?.url
+		redirect uri: ShortUrl.findByIdOrFragment(id, params.fragment as String)?.url
 	}
 
 	def create(String id) {
@@ -31,7 +31,7 @@ class ShortUrlController {
 			return
 		}
 
-		if (!shortUrl.code) shortUrl.initCode()
+		if (!shortUrl.fragment) shortUrl.initFragment()
 
 		try {
 			shortUrlService.save(shortUrl)
