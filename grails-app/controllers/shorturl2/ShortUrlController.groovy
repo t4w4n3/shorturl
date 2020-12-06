@@ -9,7 +9,7 @@ class ShortUrlController {
 
 	ShortUrlService shortUrlService
 
-	static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+	static allowedMethods = [save: "POST"]
 
 	def redirect(String fragment) {
 		redirect uri: ShortUrl.findByFragment(fragment)?.url
@@ -21,18 +21,6 @@ class ShortUrlController {
 
 	def create(String id) {
 		respond new ShortUrl(params), model: [created: ShortUrl.get(id)]
-	}
-
-	def edit(Long id) {
-		respond shortUrlService.get(id)
-	}
-
-	def update() {
-		render status: 404
-	}
-
-	def delete() {
-		render status: 404
 	}
 
 	protected void notFound() {
