@@ -5,8 +5,8 @@ class UrlMappings {
 	static mappings = {
 		"/$controller/$action?/$id?(.$format)?" {
 			constraints {
+				controller matches: 'shortUrl'
 				action inList: ['show', 'index', 'save']
-				controller inList: ['shortUrl']
 			}
 		}
 
