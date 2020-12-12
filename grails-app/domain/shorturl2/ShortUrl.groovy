@@ -28,7 +28,7 @@ class ShortUrl {
 	}
 
 	boolean hasDuplicatedFragment() {
-		validate()
-		errors.fieldErrors?.find { it.field == 'fragment' }?.code == 'unique'
+		!validate() &&
+				errors.fieldErrors?.find { it.field == 'fragment' }?.code == 'unique'
 	}
 }
