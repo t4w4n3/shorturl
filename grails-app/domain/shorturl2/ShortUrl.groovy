@@ -20,6 +20,15 @@ class ShortUrl {
 	}
 
 	def beforeValidate() {
-		fragment ?= randomAlphaNumeric
+		if (!fragment) {
+			do {
+				fragment = randomAlphaNumeric
+			} while (hasDuplicatedFragment())
+		}
+	}
+
+	boolean hasDuplicatedFragment() {
+		validate()
+		errors.fieldErrors?.find { it.field == 'fragment' }?.code == 'unique'
 	}
 }
