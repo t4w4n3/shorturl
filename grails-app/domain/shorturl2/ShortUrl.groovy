@@ -10,7 +10,7 @@ class ShortUrl {
 	String url
 
 	static constraints = {
-		fragment nullable: true, size: 5..10, unique: true
+		fragment nullable: true, size: 5..10, unique: true, matches: "[0-9a-zA-Z]*"
 		url url: true, blank: false
 	}
 
