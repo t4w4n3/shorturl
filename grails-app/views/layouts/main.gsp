@@ -39,7 +39,7 @@
 	</div>
 
 	<div class="col">
-		<p>Powered by Grails 4.1</p>
+		<p>Powered by Grails 5.0</p>
 	</div>
 
 	<div class="col">
