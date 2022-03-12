@@ -23,7 +23,7 @@
                     <g:if test="${flash.message}">
                         <div class="message" role="status">${flash.message}</div>
                     </g:if>
-                    <f:table collection="${shortUrlList}" template="shortUrl" />
+                    <f:table collection="${shortUrlList}" template="shortUrlList" />
 
                     <g:if test="${shortUrlCount > params.int('max')}">
                     <div class="pagination">
