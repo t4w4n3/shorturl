@@ -40,6 +40,7 @@
 
 	<div class="col">
 		<p>Powered by Grails <g:meta name="info.app.grailsVersion"/></p>
+		<p>This is just a demo. Database is flushed at each reboot</p>
 	</div>
 
 	<div class="col">
