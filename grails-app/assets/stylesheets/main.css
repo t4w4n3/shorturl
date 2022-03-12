@@ -587,3 +587,7 @@ img.grails-logo {
     height:340px;
     margin-top:-10px;
 }
+
+a.navbar-brand img {
+    height: 55px;
+}
