@@ -1,7 +1,7 @@
 Grails URL shorter.
 ===
 
-This is an url shortener web project, powered by Grails 4.1.0.M2.
+This is an url shortener web project, powered by Grails 5.1.3
 
 It uses minimal code, thanks to scaffolding.
 
@@ -14,7 +14,7 @@ It contains specific Heroku's files :
 Getting Started
 ---
 
-You need a Java Development Kit (JDK) installed (up to 15).
+You need a Java Development Kit (JDK) installed (from 8 up to 15).
 
 ```sh
 ./gradlew bootRun
